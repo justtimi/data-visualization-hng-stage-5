@@ -1,4 +1,4 @@
-export type MetricData = {
+export type MetricPoint = {
   timestamp: number
   cpu: number
   memory: number
@@ -9,6 +9,6 @@ export type MetricData = {
 export type LogEvent = {
   timestamp: number
   trigger: string
-  severity: "info" | "warning" | "critical"
+  severity: 'info' | 'warning' | 'critical'
   message: string
 }
