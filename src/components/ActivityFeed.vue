@@ -21,7 +21,7 @@ function color(severity: string) {
 </script>
 
 <template>
-  <div class="bg-[#111113] border border-[#232526] rounded-lg p-4 h-75 overflow-y-auto">
+  <div class="bg-[#111113] border border-[#232526] rounded-lg p-4 h-75 overflow-y-auto scrollbar-hide">
     <h2 class="text-xs uppercase text-neutral-400 mb-3">Activity Feed</h2>
 
     <div v-if="logs.length === 0" class="text-xs text-neutral-500">

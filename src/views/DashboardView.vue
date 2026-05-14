@@ -126,5 +126,7 @@ const previousMetric = computed(() => {
           <BaseChart :series="store.errorSeries" type="bar" :min="0" :max="10" />
         </section>
       </section>
+      <section class="mt-6">
       <ActivityFeed />
+            </section>
 </template>

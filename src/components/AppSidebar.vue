@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import SidebarTabs, { type Tab } from './SidebarTabs.vue'
 import { ref } from 'vue'
-import { Home, BarChart3 } from 'lucide-vue-next'
+import { Home, BarChart3, Terminal } from 'lucide-vue-next'
 
 const generalTabs = ref<Tab[]>([
   { id: 'dashboard', label: 'Dashboard', icon: Home, to: '/dashboard' },
   { id: 'analytics', label: 'Analytics', icon: BarChart3, to: '/analytics' },
+  { id: 'logs', label: 'Logs', icon: Terminal, to: '/logs' },
 ])
 
 const currentActiveId = ref('dashboard')

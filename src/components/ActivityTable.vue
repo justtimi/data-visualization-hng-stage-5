@@ -5,7 +5,7 @@ import { useMetricsStore } from '@/stores/metrics.store'
 import type { LogEvent } from '@/types/types'
 
 const store = useMetricsStore()
-type SeverityFilter = 'all' | 'info' | 'warning' | 'critical'
+export type SeverityFilter = 'all' | 'info' | 'warning' | 'critical'
 
 const filters: SeverityFilter[] = [
   'all',

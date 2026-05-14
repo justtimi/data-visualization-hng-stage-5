@@ -22,7 +22,7 @@ withDefaults(
 
 <template>
   <nav class="w-full">
-    <ul class="flex flex-col gap-1">
+    <ul class="flex flex-col gap-3">
       <li v-for="tab in tabs" :key="tab.id">
         <RouterLink
   :to="tab.to"
