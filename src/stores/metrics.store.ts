@@ -29,6 +29,7 @@ export const useMetricsStore = defineStore('engine', () => {
     tick.value++
   }
   const addLog = (event: LogEvent) => {
+    console.log('[STORE LOG]', event)
     logs.value.push(event)
   }
   const clear = () => {

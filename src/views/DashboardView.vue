@@ -5,6 +5,7 @@ import { Engine } from '@/core/streamEngine'
 import { useMetricsStore } from '@/stores/metrics.store'
 import BaseChart from '@/components/BaseChart.vue'
 import MetricCard from '@/components/MetricCard.vue'
+import ActivityFeed from '@/components/ActivityFeed.vue'
 const store = useMetricsStore()
 let engine: Engine | null = null
 
@@ -28,6 +29,9 @@ onMounted(() => {
   engine = new Engine((data) => {
     store.addMetric(data)
   })
+  engine.setLogEmitter((log) => {
+  store.addLog(log)
+})
   store.isConnected = true
   engine.start()
 })
@@ -138,6 +142,7 @@ const previousMetric = computed(() => {
           <BaseChart :series="store.errorSeries" type="bar" :min="0" :max="10" />
         </section>
       </section>
+      <ActivityFeed/>
     </main>
   </div>
 </template>

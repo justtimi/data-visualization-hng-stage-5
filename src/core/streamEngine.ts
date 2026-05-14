@@ -1,4 +1,4 @@
-import { type MetricPoint } from '@/types/types'
+import { type MetricPoint, type LogEvent } from '@/types/types'
 
 type Mode = 'live' | 'replay'
 
@@ -7,6 +7,7 @@ export class Engine {
   private readonly intervalMs: number
   private state: MetricPoint
   private history: MetricPoint[] = []
+  private logEmitter?: (log: LogEvent) => void
   private readonly emitter: (metricData: MetricPoint) => void
   private simTime = 0
   private isPaused = false
@@ -27,6 +28,10 @@ export class Engine {
 
   get isRunning() {
     return Boolean(this.intervalId)
+  }
+
+  setLogEmitter(emitter: (log: LogEvent) => void) {
+    this.logEmitter = emitter
   }
 
   start() {
@@ -73,6 +78,10 @@ export class Engine {
 
     this.state = nextState
     this.emit()
+    const log = this.generateLog(nextState)
+    if (log) {
+      this.emitLog(log)
+    }
   }
 
   private computeNextState(): MetricPoint {
@@ -127,6 +136,52 @@ export class Engine {
     this.replayIndex = (this.replayIndex + 1) % this.history.length
 
     return point
+  }
+
+  private generateLog(point: MetricPoint): LogEvent | null {
+    if (point.cpu > 85) {
+      return {
+        timestamp: point.timestamp,
+        trigger: 'cpu_spike',
+        severity: 'critical',
+        message: `CPU spike detected: ${point.cpu.toFixed(1)}%`,
+      }
+    }
+    if (point.latency > 120) {
+      return {
+        timestamp: point.timestamp,
+        trigger: 'latency_warning',
+        severity: 'warning',
+        message: `High latency: ${point.latency.toFixed(1)}ms`,
+      }
+    }
+
+    if (point.errorRate > 5) {
+      return {
+        timestamp: point.timestamp,
+        trigger: 'error_rate',
+        severity: 'critical',
+        message: `Error rate elevated: ${point.errorRate.toFixed(1)}%`,
+      }
+    }
+    if (Math.random() < 0.2) {
+      return {
+        timestamp: point.timestamp,
+        trigger: 'heartbeat',
+        severity: 'info',
+        message: `System stable. The CPU is ${point.cpu.toFixed(1)}%`,
+      }
+    }
+
+    return null
+  }
+
+  private emitLog(log: LogEvent) {
+    try {
+      this.logEmitter?.(log)
+    } catch (err) {
+      console.error('Log emitter failed:', err)
+    }
   }
 
   private clamp(value: number, min: number, max: number) {
