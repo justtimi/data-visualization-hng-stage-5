@@ -1,27 +1,24 @@
 import type { MetricPoint } from '@/types/types'
 
-export type CPUSeriesPoint = [number, number]
+export type SeriesPoint = [number, number]
 
 export class Transformer {
-  private series: CPUSeriesPoint[] = []
+  private series: SeriesPoint[] = []
   private readonly maxSize: number
 
   constructor(maxSize = 200) {
     this.maxSize = maxSize
   }
 
-  add(point: MetricPoint) {
-    const transformed: CPUSeriesPoint = [
-    point.timestamp,
-    point.cpu,
-  ]
+  add(mapper: (p: MetricPoint) => number, point: MetricPoint) {
+    const transformed: SeriesPoint = [point.timestamp, mapper(point)]
 
-     this.series = [...this.series, transformed].slice(-this.maxSize)
+    this.series = [...this.series, transformed].slice(-this.maxSize)
 
-  return this.series
+    return this.series
   }
   getSeries() {
-    return this.series
+    return [...this.series]
   }
   clear() {
     this.series = []

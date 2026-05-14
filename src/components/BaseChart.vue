@@ -5,10 +5,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import * as echarts from 'echarts'
-import type { CPUSeriesPoint } from '@/core/transformer'
+import type { SeriesPoint } from '@/core/transformer'
 
 const props = defineProps<{
-  series: CPUSeriesPoint[]
+  series: SeriesPoint[]
   type?: 'line' | 'bar'
   area?: boolean
   min?: number
@@ -51,7 +51,7 @@ onMounted(() => {
   updateChart(props.series)
 })
 
-function updateChart(series: CPUSeriesPoint[]) {
+function updateChart(series: SeriesPoint[]) {
   if (!chart) return
 
   const data = series.map(([time, value]) => ({
