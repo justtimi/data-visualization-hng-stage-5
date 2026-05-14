@@ -1,45 +1,32 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed } from 'vue'
-import AppSidebar from '@/components/AppSidebar.vue'
-import { Engine } from '@/core/streamEngine'
+import { onMounted, computed } from 'vue'
+import { useEngine } from '@/core/engineInstance'
 import { useMetricsStore } from '@/stores/metrics.store'
 import BaseChart from '@/components/BaseChart.vue'
 import MetricCard from '@/components/MetricCard.vue'
 import ActivityFeed from '@/components/ActivityFeed.vue'
 const store = useMetricsStore()
-let engine: Engine | null = null
+const engine = useEngine()
 
-const isRunning = computed(() => store.isConnected)
+const isRunning = computed(() => engine.isRunning)
 
 function toggleStream() {
-  if (!engine) return
-
-  if (store.isConnected) {
+  if (engine.isRunning) {
     engine.stop()
-    store.isConnected = false
   } else {
     engine.start()
-    store.isConnected = true
   }
+
+  store.isConnected = engine.isRunning
 }
 function clearAll() {
   store.clear()
 }
 onMounted(() => {
-  engine = new Engine((data) => {
-    store.addMetric(data)
-  })
-  engine.setLogEmitter((log) => {
-  store.addLog(log)
-})
-  store.isConnected = true
-  engine.start()
-})
-onUnmounted(() => {
-  if (!engine) return
-  engine.stop()
-  store.isConnected = false
-  engine = null
+  if (!engine.isRunning) {
+    engine.start()
+    store.isConnected = true
+  }
 })
 
 const latestMetric = computed(() => {
@@ -54,9 +41,6 @@ const previousMetric = computed(() => {
 </script>
 
 <template>
-  <div class="bg-[#06050A] min-h-screen text-white flex">
-    <AppSidebar />
-    <main class="flex-1 pl-12 pr-6 py-6 overflow-x-hidden">
       <header class="mb-6 flex items-start justify-between">
         <div>
           <h1 class="text-2xl font-bold tracking-tight text-neutral-100">My Dashboard</h1>
@@ -142,7 +126,5 @@ const previousMetric = computed(() => {
           <BaseChart :series="store.errorSeries" type="bar" :min="0" :max="10" />
         </section>
       </section>
-      <ActivityFeed/>
-    </main>
-  </div>
+      <ActivityFeed />
 </template>

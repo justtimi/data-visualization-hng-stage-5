@@ -1,12 +1,29 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useVueTable, getCoreRowModel, createColumnHelper } from '@tanstack/vue-table'
 import { useMetricsStore } from '@/stores/metrics.store'
 import type { LogEvent } from '@/types/types'
 
 const store = useMetricsStore()
+type SeverityFilter = 'all' | 'info' | 'warning' | 'critical'
 
-const data = computed(() => [...store.logs])
+const filters: SeverityFilter[] = [
+  'all',
+  'info',
+  'warning',
+  'critical',
+]
+const activeFilter = ref<SeverityFilter>('all')
+
+const filteredData = computed(() => {
+  if (activeFilter.value === 'all') {
+    return [...store.logs]
+  }
+
+  return store.logs.filter(
+    log => log.severity === activeFilter.value
+  )
+})
 
 const columnHelper = createColumnHelper<LogEvent>()
 
@@ -34,7 +51,7 @@ const columns = [
 
 const table = useVueTable({
   get data() {
-    return data.value
+    return filteredData.value
   },
   columns,
   getCoreRowModel: getCoreRowModel(),
@@ -43,7 +60,24 @@ const table = useVueTable({
 
 <template>
   <div class="bg-[#111113] border border-[#232526] rounded-lg p-4">
+    <div class="flex justify-between items-center">
     <h2 class="text-xs uppercase text-neutral-400 mb-3">Activity Logs (Analytics)</h2>
+
+    <div class="flex items-center gap-2 mb-4">
+  <button
+    v-for="filter in filters"
+    :key="filter"
+    @click="activeFilter = filter"
+    class="px-3 py-1 rounded-md text-xs border transition"
+    :class="{
+      'bg-neutral-800 border-neutral-700 text-white': activeFilter === filter,
+      'bg-transparent border-neutral-700 text-neutral-400 hover:bg-neutral-800': activeFilter !== filter
+    }"
+  >
+    {{ filter.toUpperCase() }}
+  </button>
+</div>
+</div>
 
     <table class="w-full text-xs">
       <thead>

@@ -1,4 +1,3 @@
-// core/engineInstance.ts
 import { Engine } from '@/core/streamEngine'
 import { useMetricsStore } from '@/stores/metrics.store'
 

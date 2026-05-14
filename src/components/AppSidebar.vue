@@ -1,32 +1,31 @@
 <script setup lang="ts">
 import SidebarTabs, { type Tab } from './SidebarTabs.vue'
-import { ref } from 'vue';
-import { Home, BarChart3 } from 'lucide-vue-next';
+import { ref } from 'vue'
+import { Home, BarChart3 } from 'lucide-vue-next'
 
 const generalTabs = ref<Tab[]>([
-  { id: 'dashboard', label: 'Dashboard', icon: Home },
-  { id: 'analytics', label: 'Analytics', icon: BarChart3 }
-]);
+  { id: 'dashboard', label: 'Dashboard', icon: Home, to: '/dashboard' },
+  { id: 'analytics', label: 'Analytics', icon: BarChart3, to: '/analytics' },
+])
 
-const currentActiveId = ref('dashboard');
+const currentActiveId = ref('dashboard')
 
 function selectTab(id: string) {
-  currentActiveId.value = id;
+  currentActiveId.value = id
 }
 </script>
 
 <template>
   <aside class="w-44 shrink-0">
-    <div class="fixed flex h-screen w-44 flex-col justify-between bg-[#111113] p-3 text-white border-r border-[#232526]">
+    <div
+      class="fixed flex h-screen w-44 flex-col justify-between bg-[#111113] p-3 text-white border-r border-[#232526]"
+    >
       <div class="flex justify-between items-center">
         <h3 class="font-bold text-sm tracking-tight">Timmy</h3>
         <button class="text-xs opacity-60 hover:opacity-100 transition-opacity">Close</button>
       </div>
       <nav class="flex-1 my-6">
-        <SidebarTabs :tabs="generalTabs"
-        :active-tab-id="currentActiveId"
-        @select="selectTab" />
-
+        <SidebarTabs :tabs="generalTabs" :active-tab-id="currentActiveId" @select="selectTab" />
       </nav>
       <div class="flex items-center gap-2 border-t border-[#232526] pt-3">
         <div class="w-7 h-7 rounded-full bg-neutral-700 overflow-hidden shrink-0">
