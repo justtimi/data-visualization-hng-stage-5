@@ -32,5 +32,16 @@ export const useMetricsStore = defineStore('engine', () => {
     isPaused.value = value !== undefined ? value : !isPaused.value
   }
 
-  return { metrics, logs, cpuSeries,tick,  isPaused, isConnected, addMetric, addLog, clear, setPaused }
+  return {
+    metrics,
+    logs,
+    cpuSeries,
+    tick,
+    isPaused,
+    isConnected,
+    addMetric,
+    addLog,
+    clear,
+    setPaused,
+  }
 })
