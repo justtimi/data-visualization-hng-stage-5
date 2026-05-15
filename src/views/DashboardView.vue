@@ -13,11 +13,11 @@ const isRunning = computed(() => engine.isRunning)
 function toggleStream() {
   if (engine.isRunning) {
     engine.stop()
+    store.isConnected = false
   } else {
     engine.start()
+    store.isConnected = true
   }
-
-  store.isConnected = engine.isRunning
 }
 function clearAll() {
   store.clear()
