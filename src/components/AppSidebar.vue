@@ -64,8 +64,14 @@ onUnmounted(() => {
     >
       <div class="">
         <div class="flex justify-between items-center">
-          <h3 v-if="isOpen" class="font-bold text-sm tracking-tight">Timmy</h3>
-          <button @click="isMobile ? (isMobileOpen = false) : toggleSidebar()" class="text-white">
+          <h3 v-if="isOpen" class="font-bold text-base tracking-tight">Pulse</h3>
+          <button @click="isMobile ? (isMobileOpen = false) : toggleSidebar()" class="bg-white dark:bg-[#111113]
+         border border-slate-200 dark:border-[#232526]
+         text-slate-900 dark:text-white
+         p-2 rounded-md
+         shadow-sm hover:shadow-md
+         transition-all duration-200
+         hover:bg-slate-100 dark:hover:bg-neutral-800">
             <PanelLeftClose :size="20" :stroke-width="1.5" />
           </button>
         </div>
@@ -100,7 +106,13 @@ onUnmounted(() => {
   <button
     v-if="isMobile && !isMobileOpen"
     @click="isMobileOpen = true"
-    class="fixed top-4 left-1 z-50 bg-[#111113] border border-[#232526] text-white p-2 rounded-md"
+    class="fixed top-4 left-1 z-50 bg-white dark:bg-[#111113]
+         border border-slate-200 dark:border-[#232526]
+         text-slate-900 dark:text-white
+         p-2 rounded-md
+         shadow-sm hover:shadow-md
+         transition-all duration-200
+         hover:bg-slate-100 dark:hover:bg-neutral-800"
   >
     <PanelLeftOpen :size="18" :stroke-width="1.5" />
   </button>
