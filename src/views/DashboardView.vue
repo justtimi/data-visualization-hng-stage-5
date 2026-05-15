@@ -41,7 +41,7 @@ const previousMetric = computed(() => {
 </script>
 
 <template>
-      <header class="mb-6 flex items-start justify-between">
+      <header class="mb-6 flex flex-col md:flex-row gap-6 md:gap-0 items-start justify-between">
         <div>
           <h1 class="text-2xl font-bold tracking-tight text-neutral-100">My Dashboard</h1>
           <p class="text-xs text-neutral-400 mt-1">

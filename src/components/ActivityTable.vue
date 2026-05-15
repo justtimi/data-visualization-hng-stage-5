@@ -17,7 +17,7 @@ const activeFilter = ref<SeverityFilter>('all')
 
 const filteredData = computed(() => {
   if (activeFilter.value === 'all') {
-    return [...store.logs]
+    return store.logs.slice(-1000)
   }
 
   return store.logs.filter(
@@ -60,7 +60,7 @@ const table = useVueTable({
 
 <template>
   <div class="bg-[#111113] border border-[#232526] rounded-lg p-4">
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
     <h2 class="text-xs uppercase text-neutral-400 mb-3">Activity Logs (Analytics)</h2>
 
     <div class="flex items-center gap-2 mb-4">
@@ -78,8 +78,9 @@ const table = useVueTable({
   </button>
 </div>
 </div>
+<div class="overflow-x-auto">
 
-    <table class="w-full text-xs">
+    <table class="min-w-150 w-full text-xs">
       <thead>
         <tr class="text-left text-neutral-400">
           <th>Time</th>
@@ -112,5 +113,6 @@ const table = useVueTable({
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>

@@ -75,9 +75,9 @@ onMounted(() => {
     </div>
 
     <div
-      class="flex-1 overflow-y-auto bg-[#0b0b0f] border border-[#232526] rounded-lg p-3 font-mono text-xs"
+      class="flex-1 overflow-y-auto scrollbar-hide bg-[#0b0b0f] border border-[#232526] rounded-lg p-3 font-mono text-xs"
     >
-      <div v-if="logs.length === 0" class="text-neutral-500">No logs yet...</div>
+      <p v-if="logs.length === 0" class="text-neutral-500">No logs yet...</p>
 
       <div
         v-for="log in logs"

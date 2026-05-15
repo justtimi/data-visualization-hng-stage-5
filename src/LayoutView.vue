@@ -3,10 +3,10 @@ import AppSidebar from './components/AppSidebar.vue'
 </script>
 
 <template>
-  <div class="bg-[#06050A] min-h-screen text-white flex">
+  <div class="bg-[#06050A] text-white flex h-screen overflow-hidden">
     <AppSidebar />
 
-    <main class="flex-1 pl-12 pr-6 py-6 overflow-x-hidden relative">
+    <main class="flex-1 pl-12 pr-6 py-6 overflow-x-hidden relative scrollbar-hide">
       <router-view />
     </main>
   </div>
