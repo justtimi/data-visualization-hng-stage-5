@@ -59,9 +59,9 @@ const table = useVueTable({
 </script>
 
 <template>
-  <div class="bg-[#111113] border border-[#232526] rounded-lg p-4">
+  <div class="bg-white dark:bg-[#111113] border border-slate-200 dark:border-[#232526] rounded-lg p-4">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
-    <h2 class="text-xs uppercase text-neutral-400 mb-3">Activity Logs (Analytics)</h2>
+    <h2 class="text-xs uppercase text-slate-500 dark:text-neutral-400 mb-3">Activity Logs (Analytics)</h2>
 
     <div class="flex items-center gap-2 mb-4">
   <button
@@ -70,8 +70,8 @@ const table = useVueTable({
     @click="activeFilter = filter"
     class="px-3 py-1 rounded-md text-xs border transition"
     :class="{
-      'bg-neutral-800 border-neutral-700 text-white': activeFilter === filter,
-      'bg-transparent border-neutral-700 text-neutral-400 hover:bg-neutral-800': activeFilter !== filter
+      'bg-slate-200 dark:bg-neutral-800 border-slate-300 dark:border-neutral-700 text-slate-900 dark:text-white': activeFilter === filter,
+      'bg-transparent border-slate-300 dark:border-neutral-700 text-slate-500 dark:text-neutral-400 hover:bg-slate-100 dark:hover:bg-neutral-800': activeFilter !== filter
     }"
   >
     {{ filter.toUpperCase() }}
@@ -82,7 +82,7 @@ const table = useVueTable({
 
     <table class="min-w-150 w-full text-xs">
       <thead>
-        <tr class="text-left text-neutral-400">
+        <tr class="text-left text-slate-500 dark:text-neutral-400 border-b border-slate-200 dark:border-[#232526]">
           <th>Time</th>
           <th>Severity</th>
           <th>Event</th>
@@ -91,7 +91,7 @@ const table = useVueTable({
       </thead>
 
       <tbody>
-        <tr v-for="row in table.getRowModel().rows" :key="row.id" class="border-t border-[#232526]">
+        <tr v-for="row in table.getRowModel().rows" :key="row.id" class="border-t border-slate-200 dark:border-[#232526]">
           <td class="py-2">
             {{ new Date(row.original.timestamp).toLocaleTimeString() }}
           </td>
@@ -99,17 +99,17 @@ const table = useVueTable({
           <td>
             <span
               :class="{
-                'text-green-400': row.original.severity === 'info',
-                'text-yellow-400': row.original.severity === 'warning',
-                'text-red-400': row.original.severity === 'critical',
+                'text-green-600 dark:text-green-400': row.original.severity === 'info',
+                'text-yellow-600 dark:text-yellow-400': row.original.severity === 'warning',
+                'text-red-600 dark:text-red-400': row.original.severity === 'critical',
               }"
             >
               {{ row.original.severity }}
             </span>
           </td>
 
-          <td class="text-white">{{ row.original.trigger }}</td>
-          <td class="text-neutral-300">{{ row.original.message }}</td>
+          <td class="text-slate-700 dark:text-neutral-300">{{ row.original.trigger }}</td>
+          <td class="text-slate-700 dark:text-neutral-300">{{ row.original.message }}</td>
         </tr>
       </tbody>
     </table>

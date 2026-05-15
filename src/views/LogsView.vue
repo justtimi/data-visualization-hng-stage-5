@@ -42,16 +42,16 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col h-full">
-    <header class="mb-4 flex items-center justify-between">
+    <header class="sticky top-0 bg-white dark:bg-[#0b0b0f] z-10 mb-4 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-white">Logs Inspector</h1>
-        <p class="text-xs text-neutral-400">Raw system event stream</p>
+        <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Logs Inspector</h1>
+        <p class="text-xs text-slate-500 dark:text-neutral-400">Raw system event stream</p>
       </div>
 
       <div class="flex items-center gap-2 text-xs">
         <button
           @click="togglePause"
-          class="px-3 py-1 rounded border border-neutral-700 hover:bg-neutral-800"
+          class="px-3 py-1 text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:bg-slate-100 dark:hover:bg-neutral-800 transition"
         >
           {{ store.isConnected ? 'Pause' : 'Resume' }}
         </button>
@@ -66,8 +66,8 @@ onMounted(() => {
         class="px-2 py-1 rounded border transition"
         :class="
           filter === f
-            ? 'bg-neutral-700 border-neutral-600 text-white'
-            : 'border-neutral-800 text-neutral-400 hover:bg-neutral-800'
+            ? 'bg-slate-200 dark:bg-neutral-700 border-slate-300 dark:border-neutral-600 text-slate-900 dark:text-white'
+            : 'border-slate-300 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:bg-slate-100 dark:hover:bg-neutral-800'
         "
       >
         {{ f }}
@@ -75,32 +75,32 @@ onMounted(() => {
     </div>
 
     <div
-      class="flex-1 overflow-y-auto scrollbar-hide bg-[#0b0b0f] border border-[#232526] rounded-lg p-3 font-mono text-xs"
+      class="flex-1 overflow-y-auto scrollbar-hide bg-white dark:bg-[#0b0b0f] border border-slate-200 dark:border-[#232526] rounded-lg p-3 font-mono text-xs"
     >
-      <p v-if="logs.length === 0" class="text-neutral-500">No logs yet...</p>
+      <p v-if="logs.length === 0" class="text-slate-500 dark:text-neutral-500 py-6 text-center">No logs yet...</p>
 
       <div
         v-for="log in logs"
         :key="log.timestamp + log.message"
-        class="py-1 border-b border-[#1c1c1f]"
+        class="py-1 border-b border-slate-100 dark:border-[#1c1c1f] hover:bg-slate-50 dark:hover:bg-neutral-900 transition"
       >
         <div class="flex justify-between">
           <span
             :class="{
-              'text-green-400': log.severity === 'info',
-              'text-yellow-400': log.severity === 'warning',
-              'text-red-400': log.severity === 'critical',
+              'text-green-600 dark:text-green-400': log.severity === 'info',
+              'text-yellow-600 dark:text-yellow-400': log.severity === 'warning',
+              'text-red-600 dark:text-red-400': log.severity === 'critical',
             }"
           >
             [{{ formatTime(log.timestamp) }}] {{ log.message }}
           </span>
 
-          <span class="text-neutral-600 ml-4">
+          <span class="text-slate-500 dark:text-neutral-400 ml-4">
             {{ log.trigger }}
           </span>
         </div>
 
-        <pre class="text-neutral-500 text-[10px] mt-1"
+        <pre class="text-slate-500 dark:text-neutral-500 text-[10px] mt-1"
           >{{ log }}
         </pre>
       </div>

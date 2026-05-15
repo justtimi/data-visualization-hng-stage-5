@@ -14,17 +14,17 @@ function formatTime(ts: number) {
 }
 
 function color(severity: string) {
-  if (severity === 'critical') return 'text-red-400'
-  if (severity === 'warning') return 'text-yellow-400'
-  return 'text-green-400'
+  if (severity === 'critical') return 'text-red-500 dark:text-red-400'
+  if (severity === 'warning') return 'text-yellow-600 dark:text-yellow-400'
+  return 'text-green-600 dark:text-green-400'
 }
 </script>
 
 <template>
-  <div class="bg-[#111113] border border-[#232526] rounded-lg p-4 h-75 overflow-y-auto scrollbar-hide">
-    <h2 class="text-xs uppercase text-neutral-400 mb-3">Activity Feed</h2>
+  <div class="bg-white dark:bg-[#111113] border border-slate-200 dark:border-[#232526] rounded-lg p-4 h-75 overflow-y-auto scrollbar-hide">
+    <h2 class="text-xs uppercase text-slate-500 dark:text-neutral-400 mb-3">Activity Feed</h2>
 
-    <div v-if="logs.length === 0" class="text-xs text-neutral-500">
+    <div v-if="logs.length === 0" class="text-xs text-slate-400 dark:text-neutral-500">
       No events yet...
     </div>
 
@@ -33,7 +33,7 @@ function color(severity: string) {
         <span :class="color(log.severity)">
           {{ log.message }}
         </span>
-        <span class="text-neutral-500">
+        <span class="text-slate-500 dark:text-neutral-500">
           {{ formatTime(log.timestamp) }}
         </span>
       </div>

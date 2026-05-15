@@ -43,7 +43,7 @@ const previousMetric = computed(() => {
 <template>
       <header class="mb-6 flex flex-col md:flex-row gap-6 md:gap-0 items-start justify-between">
         <div>
-          <h1 class="text-2xl font-bold tracking-tight text-neutral-100">My Dashboard</h1>
+          <h1 class="text-2xl font-bold tracking-tight dark:text-neutral-100 text-slate-900">My Dashboard</h1>
           <p class="text-xs text-neutral-400 mt-1">
             Real-time system telemetry and performance monitors
           </p>
@@ -59,13 +59,13 @@ const previousMetric = computed(() => {
 
           <button
             @click="toggleStream"
-            class="px-3 py-1 text-xs rounded-md border border-neutral-700 bg-neutral-900 hover:bg-neutral-800 transition"
+            class="px-3 py-1 text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:bg-slate-100 dark:hover:bg-neutral-800 transition"
           >
             {{ isRunning ? 'Pause' : 'Resume' }}
           </button>
           <button
             @click="clearAll"
-            class="px-3 py-1 text-xs rounded-md border border-red-800 bg-red-950 hover:bg-red-900 transition"
+            class="px-3 py-1 text-xs rounded-md border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950 hover:bg-red-100 dark:hover:bg-red-900 transition"
           >
             Clear
           </button>
@@ -101,25 +101,25 @@ const previousMetric = computed(() => {
         />
       </section>
       <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <section class="bg-[#111113] border border-[#232526] rounded-lg p-4 shadow-xl">
+        <section class="bg-white dark:bg-[#111113] border border-slate-200 dark:border-[#232526] rounded-lg p-4 shadow-xl">
           <h2 class="text-sm font-semibold tracking-wide uppercase text-neutral-400 mb-4">
             CPU Utilization (%)
           </h2>
           <BaseChart :series="store.cpuSeries" type="line" :min="0" :max="100" />
         </section>
-        <section class="bg-[#111113] border border-[#232526] rounded-lg p-4 shadow-xl">
+        <section class="bg-white dark:bg-[#111113] border border-slate-200 dark:border-[#232526] rounded-lg p-4 shadow-xl">
           <h2 class="text-sm font-semibold tracking-wide uppercase text-neutral-400 mb-4">
             Memory Usage (%)
           </h2>
           <BaseChart :series="store.memorySeries" type="line" :area="true" :min="0" :max="100" />
         </section>
-        <section class="bg-[#111113] border border-[#232526] rounded-lg p-4 shadow-xl">
+        <section class="bg-white dark:bg-[#111113] border border-slate-200 dark:border-[#232526] rounded-lg p-4 shadow-xl">
           <h2 class="text-sm font-semibold tracking-wide uppercase text-neutral-400 mb-4">
             Latency (ms)
           </h2>
           <BaseChart :series="store.latencySeries" type="line" :area="true" :min="0" :max="200" />
         </section>
-        <section class="bg-[#111113] border border-[#232526] rounded-lg p-4 shadow-xl">
+        <section class="bg-white dark:bg-[#111113] border border-slate-200 dark:border-[#232526] rounded-lg p-4 shadow-xl">
           <h2 class="text-sm font-semibold tracking-wide uppercase text-neutral-400 mb-4">
             Error Rate (%)
           </h2>

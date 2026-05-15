@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import AppSidebar from './components/AppSidebar.vue'
+import { useUIStore } from '@/stores/ui.store.ts'
+
+const ui = useUIStore()
 </script>
 
 <template>
-  <div class="bg-[#06050A] text-white flex h-screen overflow-hidden">
+  <div
+    :class="[' flex h-screen overflow-hidden transition-colors', ui.darkMode ? 'dark bg-[#06050A] text-white' : 'bg-[#F8FAFC] text-[#0F172A]']"
+  >
     <AppSidebar />
 
     <main class="flex-1 pl-12 pr-6 py-6 overflow-x-hidden relative scrollbar-hide">
