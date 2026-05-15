@@ -11,7 +11,7 @@ const engine = useEngine()
 const isRunning = computed(() => engine.isRunning)
 
 function toggleStream() {
-  if (engine.isRunning) {
+  if (store.isConnected) {
     engine.stop()
     store.isConnected = false
   } else {
