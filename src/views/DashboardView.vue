@@ -8,9 +8,11 @@ import ActivityFeed from '@/components/ActivityFeed.vue'
 const store = useMetricsStore()
 const engine = useEngine()
 
-const isRunning = computed(() => engine.isRunning)
+const isRunning = computed(() => store.isConnected)
 
 function toggleStream() {
+  if (!engine) return
+
   if (store.isConnected) {
     engine.stop()
     store.isConnected = false
